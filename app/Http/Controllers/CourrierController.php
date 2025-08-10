@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Courrier;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CourrierController extends Controller
 {
@@ -316,5 +317,32 @@ class CourrierController extends Controller
             $rules["document_pdf_$i"] = 'nullable|file|mimes:pdf|max:4096';
         }
         return $request->validate($rules);
+    }
+
+    // alias pour DomPDF à importer en haut
+
+    public function receptionPdf(Request $request)
+    {
+        $query = Courrier::where('mouvement', 'reception');
+        $this->applyFilters($query, $request);
+
+        // Charge tous les résultats (pas paginés)
+        $courriers = $query->orderByDesc('created_at')->get();
+
+        // Charge la vue PDF
+        $pdf = PDF::loadView('courriers.reception.pdf', compact('courriers'));
+
+        // Téléchargement ou affichage
+        return $pdf->download('liste_courriers_reception_' . date('Ymd_His') . '.pdf');
+    }
+
+    public function expeditionPdf(Request $request)
+    {
+        $query = Courrier::where('mouvement', 'expedition');
+        $this->applyFilters($query, $request);
+        $courriers = $query->orderByDesc('created_at')->get();
+
+        $pdf = PDF::loadView('courriers.expedition.pdf', compact('courriers'));
+        return $pdf->download('liste_courriers_expedition_' . date('Ymd_His') . '.pdf');
     }
 }

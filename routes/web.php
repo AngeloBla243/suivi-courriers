@@ -78,6 +78,8 @@ Route::middleware(['auth', 'role:secretaire,admin'])
         Route::get('/', [CourrierController::class, 'expeditionIndex'])->name('index');
         Route::get('/create', [CourrierController::class, 'expeditionCreate'])->name('create');
         Route::post('/', [CourrierController::class, 'expeditionStore'])->name('store');
+        // Route::get('courriers/expedition/pdf', [CourrierController::class, 'expeditionPdf'])->name('courriers.expedition.pdf');
+        Route::get('pdf', [CourrierController::class, 'expeditionPdf'])->name('pdf');
         Route::get('/{courrier}', [CourrierController::class, 'expeditionShow'])->name('show');
         Route::get('/{courrier}/edit', [CourrierController::class, 'expeditionEdit'])->name('edit');
         Route::put('/{courrier}', [CourrierController::class, 'expeditionUpdate'])->name('update');
@@ -93,6 +95,8 @@ Route::middleware(['auth', 'role:secretaire,admin'])
         Route::get('/', [CourrierController::class, 'receptionIndex'])->name('index');
         Route::get('/create', [CourrierController::class, 'receptionCreate'])->name('create');
         Route::post('/', [CourrierController::class, 'receptionStore'])->name('store');
+        // Pour la liste réception
+        Route::get('pdf', [CourrierController::class, 'receptionPdf'])->name('pdf');
         Route::get('/{courrier}', [CourrierController::class, 'receptionShow'])->name('show');
         Route::get('/{courrier}/edit', [CourrierController::class, 'receptionEdit'])->name('edit');
         Route::put('/{courrier}', [CourrierController::class, 'receptionUpdate'])->name('update');

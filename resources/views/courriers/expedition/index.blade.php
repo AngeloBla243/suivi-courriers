@@ -3,54 +3,163 @@
 @section('title', 'Courriers Expédition')
 
 @section('content_header')
-    <h1>Liste des courriers d'expédition</h1>
+    <h1 class="fw-bold text-primary" style="color:#1f94d2!important;">
+        <i class="fas fa-shipping-fast me-2"></i> Liste des courriers d'expédition
+    </h1>
 @stop
 
 @section('content')
+    <style>
+        :root {
+            --main-blue: #1f94d2;
+            --main-yellow: #ffe243;
+        }
+
+        /* Bouton principal */
+        .btn-primary {
+            background-color: var(--main-blue);
+            border-color: var(--main-blue);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #187bb8;
+            border-color: #187bb8;
+        }
+
+        /* Tableau */
+        .table-custom {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(31, 148, 210, 0.08);
+        }
+
+        .table-custom thead th {
+            background: linear-gradient(90deg, var(--main-blue) 70%, var(--main-yellow) 100%);
+            color: #111;
+            font-weight: 700;
+            text-align: center;
+            border: none;
+        }
+
+        .table-custom tbody td {
+            vertical-align: middle;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #e8f2fc;
+            transition: 0.2s;
+        }
+
+        /* Boutons actions */
+        .btn-sm {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Pagination */
+        .pagination {
+            --bs-pagination-hover-bg: #e8f2fc;
+            --bs-pagination-active-bg: var(--main-blue);
+            --bs-pagination-active-border-color: var(--main-yellow);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--main-blue);
+            border-color: var(--main-yellow);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .pagination .page-link {
+            color: var(--main-blue);
+            border-radius: 6px !important;
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--main-yellow);
+            color: #000;
+        }
+    </style>
+
+    {{-- Message de succès --}}
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-1"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+        </div>
     @endif
 
+    {{-- Bouton Nouveau --}}
     <a href="{{ route('courriers.expedition.create') }}" class="btn btn-primary mb-3">
         <i class="fas fa-plus"></i> Nouveau courrier
     </a>
 
+    {{-- Filtres --}}
     @include('courriers._filters')
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Réf</th>
-                <th>Objet</th>
-                <th>Destinataire</th>
-                <th>Date</th>
-                <th>Annexes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($courriers as $courrier)
-                <tr>
-                    <td>{{ $courrier->num_reference }}</td>
-                    <td>{{ $courrier->concerne }}</td>
-                    <td>{{ $courrier->destinataire }}</td>
-                    <td>{{ \Carbon\Carbon::parse($courrier->jour_trans)->format('d/m/Y') }}</td>
-                    <td>{{ $courrier->nbre_annexe }}</td>
-                    <td>
-                        <a href="{{ route('courriers.expedition.show', $courrier) }}" class="btn btn-info btn-sm">Voir</a>
-                        <a href="{{ route('courriers.expedition.edit', $courrier) }}"
-                            class="btn btn-warning btn-sm">Modifier</a>
-                        <a href="{{ route('courriers.expedition.print', $courrier) }}" target="_blank"
-                            class="btn btn-secondary btn-sm">Print</a>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6">Aucun courrier trouvé</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+    <form action="{{ route('courriers.expedition.pdf') }}" method="GET" target="_blank" class="mb-3">
+        <input type="hidden" name="num_reference" value="{{ request('num_reference') }}">
+        <input type="hidden" name="annee" value="{{ request('annee') }}">
+        <input type="hidden" name="mois" value="{{ request('mois') }}">
+        <input type="hidden" name="expediteur" value="{{ request('expediteur') }}">
+        <input type="hidden" name="destinataire" value="{{ request('destinataire') }}">
 
-    {{ $courriers->links() }}
+        <button type="submit" class="btn btn-secondary">
+            <i class="fas fa-file-pdf"></i> Exporter en PDF
+        </button>
+    </form>
+
+
+    {{-- Tableau --}}
+    <div class="table-responsive table-custom">
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th>Réf</th>
+                    <th>Objet</th>
+                    <th>Destinataire</th>
+                    <th>Date</th>
+                    <th>Annexes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($courriers as $courrier)
+                    <tr>
+                        <td class="fw-semibold text-center">{{ $courrier->num_reference }}</td>
+                        <td>{{ $courrier->concerne }}</td>
+                        <td>{{ $courrier->destinataire }}</td>
+                        <td class="text-center">
+                            <span class="badge"
+                                style="background:var(--main-yellow);color:var(--main-blue);font-weight:700;">
+                                {{ \Carbon\Carbon::parse($courrier->jour_trans)->format('d/m/Y') }}
+                            </span>
+                        </td>
+                        <td class="text-center">{{ $courrier->nbre_annexe }}</td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a href="{{ route('courriers.expedition.show', $courrier) }}"
+                                    class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('courriers.expedition.edit', $courrier) }}"
+                                    class="btn btn-warning btn-sm text-white"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('courriers.expedition.print', $courrier) }}" target="_blank"
+                                    class="btn btn-secondary btn-sm"><i class="fas fa-print"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-3 fst-italic">Aucun courrier trouvé</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    {{-- Pagination --}}
+    <div class="mt-3 d-flex justify-content-center">
+        {{ $courriers->onEachSide(1)->links() }}
+    </div>
 @stop

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Activer le style Bootstrap pour la pagination
+        Paginator::useBootstrap();
+
+        // Ou pour Tailwind (par défaut sur Laravel 8+)
+        // Paginator::useTailwind();
+
     }
 }
