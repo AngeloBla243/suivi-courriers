@@ -436,7 +436,7 @@ return [
         [
             'text'    => 'Courriers',
             'icon'    => 'fas fa-fw fa-envelope',
-            'can'     => ['isSecretaire', 'isAdmin'],
+            'can'     => ['isSecretaire'],
             'submenu' => [
                 [
                     'text'  => 'Expédition - Liste',
