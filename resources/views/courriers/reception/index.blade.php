@@ -17,7 +17,7 @@
             --main-grey: #f6fafd;
         }
 
-        /* Carte/form recherche */
+        /* Carte contenant barre de recherche */
         .form-research-courrier {
             background: #fff;
             border-radius: 13px;
@@ -41,12 +41,13 @@
         }
 
         .form-research-courrier .btn-primary {
-            background: linear-gradient(90deg, #ffe243 35%, var(--main-blue) 100%);
+            background: linear-gradient(90deg, var(--main-yellow) 35%, var(--main-blue) 100%);
             color: #13323c;
             font-weight: 700;
             border: none;
             border-radius: 7px;
             padding: 0.6em 1.5em;
+            transition: background 0.3s ease;
         }
 
         .form-research-courrier .btn-primary:hover {
@@ -56,12 +57,13 @@
 
         .form-research-courrier .btn-secondary {
             background: #eaf2fc;
-            color: #1f94d2;
+            color: var(--main-blue);
             border-radius: 7px;
             border: none;
             font-weight: 600;
             margin-left: 0.3em;
             padding: 0.62em 1.1em;
+            transition: background 0.3s ease;
         }
 
         .form-research-courrier .btn-secondary:hover {
@@ -69,21 +71,7 @@
             color: #12537d;
         }
 
-        /* Bouton nouveau courrier */
-        .btn-success {
-            background-color: #28b26e;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            padding: 0.52em 1.3em;
-            margin-bottom: 1.2rem;
-        }
-
-        .btn-success:hover {
-            background-color: #209055;
-        }
-
-        /* Tableau */
+        /* Style tableau */
         .table-custom {
             background: #fff;
             border-radius: 13px;
@@ -95,11 +83,11 @@
         .table-custom th {
             background: linear-gradient(90deg, var(--main-blue) 77%, var(--main-yellow) 100%);
             color: #1a1a1a;
-            border: none;
             font-weight: 700;
             text-align: center;
             letter-spacing: 1.1px;
             font-size: 1.01rem;
+            white-space: nowrap;
         }
 
         .table-custom td {
@@ -109,6 +97,8 @@
             vertical-align: middle;
             border-bottom: 1.7px solid #eaf2fa;
             text-align: center;
+            white-space: normal;
+            word-break: break-word;
         }
 
         .table-custom tr:last-child td {
@@ -117,20 +107,22 @@
 
         .table-custom tr:hover td {
             background: #e8f2fc !important;
-            color: #e53935;
+            color: var(--main-red);
             transition: 0.15s;
         }
 
-        /* Actions */
+        /* Boutons actions */
         .table-custom .btn-group .btn,
         .table-custom .btn {
             border-radius: 7px;
             font-weight: 500;
             margin-right: 0.2em;
+            white-space: nowrap;
+            padding: 0.35em 0.9em;
         }
 
         .table-custom .btn-danger {
-            background: #e53935 !important;
+            background: var(--main-red) !important;
             border: none;
         }
 
@@ -139,7 +131,7 @@
         }
 
         .table-custom .btn-warning {
-            background: #ffe243 !important;
+            background: var(--main-yellow) !important;
             color: #1a2761 !important;
             border: none;
         }
@@ -150,7 +142,7 @@
         }
 
         .table-custom .btn-info {
-            background: #1f94d2 !important;
+            background: var(--main-blue) !important;
             color: #fff !important;
             border: none;
         }
@@ -159,10 +151,10 @@
             background: #115c85 !important;
         }
 
-        /* Badges sur dates */
+        /* Date badge */
         .date-badge {
             background: var(--main-yellow);
-            color: #1f94d2;
+            color: var(--main-blue);
             font-weight: 600;
             border-radius: 8px;
             padding: 2px 13px;
@@ -173,7 +165,7 @@
             display: inline-block;
         }
 
-        /* Pagination custom compact */
+        /* Pagination */
         .pagination {
             margin-bottom: 0;
         }
@@ -190,46 +182,149 @@
             box-shadow: none;
             padding: 0.36em 0.85em;
             background: #fff;
-            transition: all .18s;
+            transition: all 0.18s;
             font-size: 1em;
+            white-space: nowrap;
         }
 
         .pagination .page-link:focus {
             color: #fff;
-            background: #1f94d2;
+            background: var(--main-blue);
             outline: none;
         }
 
         .pagination .page-item.active .page-link {
-            background: linear-gradient(90deg, #ffe243 60%, #1f94d2 95%);
+            background: linear-gradient(90deg, var(--main-yellow) 60%, var(--main-blue) 95%);
             color: #144e6e;
-            border-color: #ffe243;
+            border-color: var(--main-yellow);
             font-weight: 800;
         }
 
         .pagination .page-link:hover {
-            background: #ffe243;
-            color: #1f94d2;
-            border-color: #ffe243;
+            background: var(--main-yellow);
+            color: var(--main-blue);
+            border-color: var(--main-yellow);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .form-research-courrier {
                 flex-direction: column;
-                gap: .6rem;
+                gap: 0.6rem;
                 padding: 0.85rem 0.5rem;
             }
 
             .table-custom th,
             .table-custom td {
                 font-size: 0.92rem;
+                padding: 0.4rem 0.6rem;
+                white-space: normal;
             }
 
             .pagination {
-                font-size: .92em
+                font-size: 0.92em;
+            }
+
+            .table-custom .btn-group .btn,
+            .table-custom .btn {
+                min-width: 50px;
+                padding: 0.25em 0.5em;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scroll horizontal */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+    <style>
+        .form-research-courrier {
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 2px 12px rgba(31, 148, 210, 0.07);
+            padding: 1.2rem 1.3rem;
+            margin-bottom: 1.7rem;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: flex-end;
+        }
+
+        .form-research-courrier .form-group {
+            flex: 1 1 160px;
+            /* flexible mais minimum 160px */
+            min-width: 140px;
+        }
+
+        .form-research-courrier .form-control {
+            border-radius: 7.5px;
+            border: 1.5px solid #e4eef7;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-research-courrier button.btn {
+            border-radius: 7px;
+            padding: 0.6em 1.5em;
+            min-width: 110px;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ffe243 35%, #1f94d2 100%);
+            color: #13323c;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #fde77a 5%, #369ad0 100%);
+            color: #185276;
+        }
+
+        .btn-secondary {
+            background: #eaf2fc;
+            color: #1f94d2;
+            border: none;
+            font-weight: 600;
+            margin-left: 0.3em;
+            padding: 0.62em 1.1em;
+        }
+
+        .btn-secondary:hover {
+            background: #e1eaff;
+            color: #12537d;
+        }
+
+        /* Responsive - changement de disposition en colonnes sur petit écran */
+        @media (max-width: 768px) {
+            .form-research-courrier {
+                flex-direction: column;
+                gap: 0.6rem;
+                padding: 1rem 0.6rem;
+            }
+
+            .form-research-courrier .form-group {
+                min-width: 100%;
+            }
+
+            .form-research-courrier button.btn {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .form-research-courrier .btn-secondary {
+                margin-left: 0;
+                width: 100%;
             }
         }
     </style>
+
+
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -290,13 +385,13 @@
         <table class="table table-bordered table-striped align-middle mb-0">
             <thead>
                 <tr>
-                    <th>N° enreg.</th>
-                    <th>Expéditeur</th>
-                    <th>Objet</th>
-                    <th>Destinataire</th>
-                    <th>Date réception</th>
-                    <th>Annexes</th>
-                    <th>Actions</th>
+                    <th style="min-width: 300px;">N° enreg.</th>
+                    <th style="min-width: 300px;">Expéditeur</th>
+                    <th style="min-width: 300px;">Objet</th>
+                    <th style="min-width: 300px;">Destinataire</th>
+                    <th style="min-width: 300px;">Date réception</th>
+                    <th style="min-width: 300px;">Annexes</th>
+                    <th style="min-width: 300px;">Actions</th>
                 </tr>
             </thead>
             <tbody>

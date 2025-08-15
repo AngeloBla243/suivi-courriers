@@ -15,29 +15,7 @@
             --main-yellow: #ffe243;
         }
 
-        /* Search input group */
-        .user-search-group .form-control {
-            border-radius: 7px 0 0 7px;
-            border: 1.5px solid #e4eef7;
-            font-size: 1.07rem;
-            box-shadow: none;
-        }
-
-        .user-search-group .btn-outline-primary {
-            border-radius: 0 7px 7px 0;
-            border: 1.5px solid #1f94d2;
-            color: var(--main-blue);
-            font-weight: 600;
-            background: #fff;
-            transition: all .18s;
-        }
-
-        .user-search-group .btn-outline-primary:hover {
-            background: var(--main-blue);
-            color: #fff;
-        }
-
-        /* Tableau */
+        /* Style tableau */
         .user-table {
             background: #fff;
             border-radius: 11px;
@@ -52,6 +30,7 @@
             font-weight: 700;
             border: none;
             text-align: center;
+            white-space: nowrap;
         }
 
         .user-table td {
@@ -60,6 +39,7 @@
             color: #144e6e;
             border-bottom: 1.5px solid #f0f5fa;
             background: #fff;
+            white-space: nowrap;
         }
 
         .user-table tr:last-child td {
@@ -85,11 +65,12 @@
             font-weight: 500;
             min-width: 80px;
             margin-right: 2px;
+            white-space: nowrap;
         }
 
         .btn-warning {
             background: var(--main-yellow);
-            color: #1f94d2;
+            color: var(--main-blue);
             border: none;
         }
 
@@ -123,8 +104,9 @@
             font-weight: 600;
             padding: 0.36em 0.85em;
             background: #fff;
-            transition: all .18s;
+            transition: all 0.18s;
             font-size: 1em;
+            white-space: nowrap;
         }
 
         .pagination .page-link:focus {
@@ -142,27 +124,50 @@
 
         .pagination .page-link:hover {
             background: #ffe243;
-            color: #1f94d2;
+            color: var(--main-blue);
             border-color: #ffe243;
         }
 
-        @media (max-width: 768px) {
+        /* Scroll horizontal natif */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive: réduction taille */
+        @media (max-width: 991.98px) {
 
             .user-table th,
             .user-table td {
-                font-size: .98em;
+                font-size: 0.9rem;
+                padding: 0.35rem 0.5rem;
+                white-space: normal;
             }
 
             .btn-sm {
                 min-width: 60px;
-                font-size: .96em;
+                font-size: 0.95rem;
+                padding: 0.3em 0.5em;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+
+            .user-table th,
+            .user-table td {
+                font-size: 0.85rem;
+                padding: 0.25rem 0.35rem;
+                white-space: normal;
             }
 
-            .pagination {
-                font-size: .93em
+            .btn-sm {
+                min-width: 48px;
+                font-size: 0.85rem;
+                padding: 0.25em 0.4em;
             }
         }
     </style>
+
 
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -186,8 +191,8 @@
                     <th>Nom</th>
                     <th>Email</th>
                     <th>Rôle</th>
-                    <th>Photo</th>
-                    <th>Actions</th>
+                    <th style="min-width: 100px;">Photo</th>
+                    <th style="min-width: 150px;">Actions</th>
                 </tr>
             </thead>
             <tbody>

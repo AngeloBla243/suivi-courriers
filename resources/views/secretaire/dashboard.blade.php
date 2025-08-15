@@ -104,7 +104,7 @@
         </div>
 
         <!-- En attente -->
-        <div class="col-lg-3 col-6">
+        {{-- <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>{{ $courriersEnAttente ?? 0 }}</h3>
@@ -117,7 +117,7 @@
                     Voir en attente <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Expéditions -->
         <div class="col-lg-3 col-6">
@@ -136,7 +136,7 @@
         </div>
 
         <!-- Réceptions -->
-        <div class="col-lg-3 col-6">
+        {{-- <div class="col-lg-3 col-6">
             <div class="small-box bg-danger text-white">
                 <div class="inner">
                     <h3>{{ $totalReceptions ?? 0 }}</h3>
@@ -149,7 +149,7 @@
                     Voir réceptions <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     {{-- Graphique --}}

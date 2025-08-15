@@ -13,21 +13,11 @@
         :root {
             --main-blue: #1f94d2;
             --main-yellow: #ffe243;
+            --main-red: #e53935;
+            --main-grey: #f6fafd;
         }
 
-        /* Bouton principal */
-        .btn-primary {
-            background-color: var(--main-blue);
-            border-color: var(--main-blue);
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background-color: #187bb8;
-            border-color: #187bb8;
-        }
-
-        /* Tableau */
+        /* Conteneur et style tableau */
         .table-custom {
             background: #fff;
             border-radius: 12px;
@@ -41,14 +31,26 @@
             font-weight: 700;
             text-align: center;
             border: none;
+            white-space: nowrap;
         }
 
         .table-custom tbody td {
             vertical-align: middle;
+            color: #144e6e;
+            background: #fff;
+            font-size: 1rem;
+            border-bottom: 1.7px solid #eaf2fa;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .table-custom tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .table-custom tbody tr:hover {
             background-color: #e8f2fc;
+            color: var(--main-red);
             transition: 0.2s;
         }
 
@@ -56,6 +58,10 @@
         .btn-sm {
             border-radius: 8px;
             font-weight: 500;
+            min-width: 72px;
+            margin-right: 4px;
+            white-space: nowrap;
+            padding: 0.3em 0.6em;
         }
 
         /* Pagination */
@@ -81,7 +87,48 @@
             background-color: var(--main-yellow);
             color: #000;
         }
+
+        /* Responsive - table scroll horizontal */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive - ajustements des tailles et paddings */
+        @media (max-width: 991.98px) {
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.7rem;
+                white-space: normal;
+            }
+
+            .btn-sm {
+                min-width: 60px;
+                font-size: 0.9rem;
+                padding: 0.25em 0.5em;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.5rem;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .btn-sm {
+                min-width: 48px;
+                font-size: 0.8rem;
+                padding: 0.2em 0.45em;
+            }
+        }
     </style>
+
 
     {{-- Message de succès --}}
     @if (session('success'))
@@ -117,12 +164,12 @@
         <table class="table table-bordered mb-0">
             <thead>
                 <tr>
-                    <th>Réf</th>
-                    <th>Objet</th>
-                    <th>Destinataire</th>
-                    <th>Date</th>
-                    <th>Annexes</th>
-                    <th>Actions</th>
+                    <th style="min-width: 300px;">Réf</th>
+                    <th style="min-width: 300px;">Objet</th>
+                    <th style="min-width: 300px;">Destinataire</th>
+                    <th style="min-width: 300px;">Date</th>
+                    <th style="min-width: 200px;">Annexes</th>
+                    <th style="min-width: 300px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
